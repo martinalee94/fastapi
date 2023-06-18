@@ -12,6 +12,7 @@ black = "*"
 uvicorn = "*"
 sqlalchemy = "*"
 pydantic = "*"
+httpx = "*"
 
 [dev-packages]
 
