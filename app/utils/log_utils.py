@@ -12,9 +12,17 @@ def detailed_logging(logging_path: str):
     def internal_logger(func: Callable):
         @wraps(func)
         def sync_wrapper(*args, **kwargs):
-            logger.info(f"{current_time()} {logging_path} call against {func.__name__}")
+            logger.info(
+                f"{current_time()} {logging_path} call against {func.__name__} with:"
+                f"Argument:{args} "
+                f"Keyword argument:{kwargs}"
+            )
             try:
                 result = func(*args, **kwargs)
+                logger.info(
+                    f"{current_time()} {logging_path} call against {func.__name__} with:"
+                    f"Result:{result}"
+                )
                 return result
             except Exception as e:
                 logger.error(
