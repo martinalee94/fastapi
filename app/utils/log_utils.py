@@ -1,8 +1,9 @@
 import logging
-from typing import Callable
 from functools import wraps
-from .time_utils import current_time
 from inspect import iscoroutinefunction
+from typing import Callable
+
+from .time_utils import current_time
 
 logger = logging.getLogger(__name__)
 
@@ -19,15 +20,10 @@ def detailed_logging(logging_path: str):
             )
             try:
                 result = func(*args, **kwargs)
-                logger.info(
-                    f"{current_time()} {logging_path} call against {func.__name__} with:"
-                    f"Result:{result}"
-                )
+                logger.info(f"{current_time()} {logging_path} call against {func.__name__} with:" f"Result:{result}")
                 return result
             except Exception as e:
-                logger.error(
-                    f"{current_time()} {logging_path} Exception raised in {func.__name__}. exception {str(e)}"
-                )
+                logger.error(f"{current_time()} {logging_path} Exception raised in {func.__name__}. exception {str(e)}")
                 raise e
 
         @wraps(func)
@@ -39,15 +35,10 @@ def detailed_logging(logging_path: str):
             )
             try:
                 result = func(*args, **kwargs)
-                logger.info(
-                    f"{current_time()} {logging_path} call against {func.__name__} with:"
-                    f"Result:{result}"
-                )
+                logger.info(f"{current_time()} {logging_path} call against {func.__name__} with:" f"Result:{result}")
                 return result
             except Exception as e:
-                logger.error(
-                    f"{current_time()} {logging_path} Exception raised in {func.__name__}. exception {str(e)}"
-                )
+                logger.error(f"{current_time()} {logging_path} Exception raised in {func.__name__}. exception {str(e)}")
                 raise e
 
         if iscoroutinefunction(func):
