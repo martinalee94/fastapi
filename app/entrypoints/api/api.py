@@ -1,12 +1,15 @@
-from fastapi import APIRouter
-from app.utils.log_utils import detailed_logging
+from fastapi import APIRouter, Path
+from loguru import logger
+from app.schemas.entrypoints import api as api_schemas
 
 router = APIRouter()
-LOGGING_PATH = "app.entrypoints.api.api.Example"
 
 
 class Example:
-    @router.get("/example")
-    @detailed_logging(LOGGING_PATH)
-    def get_example():
-        return "example"
+    @router.get("/example/{num}", response_model=api_schemas.ExampleOutSchemas)
+    def get_example(
+        num: str = Path(example="get example"),
+    ):
+        logger.info(f"/example/{num}")
+        logger.success(f"/example/{num}")
+        return api_schemas.ExampleOutSchemas(message="get example")
