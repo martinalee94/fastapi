@@ -1,8 +1,9 @@
+import secrets
+import string
+
 from sqlalchemy import Column, Integer, MetaData, String, Table, func
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import mapper
-import secrets
-import string
 
 from app.domain import models
 
@@ -10,10 +11,7 @@ metadata = MetaData()
 
 
 def sn_alphanum(length: int = 10) -> str:
-    return "".join(
-        secrets.choice(string.ascii_uppercase + string.digits[1:])
-        for i in range(length)
-    )
+    return "".join(secrets.choice(string.ascii_uppercase + string.digits[1:]) for i in range(length))
 
 
 def generate_product_serial_number():
